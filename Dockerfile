@@ -18,7 +18,7 @@ RUN mkdir -p /var/run/postgresql && chown -R postgres:postgres /var/run/postgres
 
 
 RUN apt-get update \
-&& apt-get install -y --no-install-recommends git gcc libc-dev python3-dev build-essential libpq-dev postgresql-11 postgresql-client-11 \
+&& apt-get install -y --no-install-recommends git gcc libc-dev python3-dev build-essential libpq-dev mysql-server mysql-client \
 && apt-get purge -y --auto-remove \
 && rm -rf /var/lib/apt/lists/*
 
@@ -28,8 +28,8 @@ RUN pip install --upgrade pip virtualenv
 # We don't expose the port, but allow all incomming connections
 USER postgres
 # configure the user for later. the service will be started in the entrypoint
-RUN  service postgresql start \
-&& psql -c "CREATE USER ctest WITH SUPERUSER PASSWORD 'coveragetest123';ALTER USER ctest CREATEDB;"
+RUN  service mysql start \
+&& mysql -c "CREATE USER 'ctest'@'localhost' IDENTIFIED BY 'coveragetest123';GRANT ALL PRIVILEGES ON *.* TO 'ctest'@'localhost' WITH GRANT OPTION;"
 USER root
 
 
