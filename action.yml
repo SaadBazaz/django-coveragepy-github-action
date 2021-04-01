@@ -1,4 +1,4 @@
-name: Python Django Coverage GitHub Action
+name: Python Django + MySQL Coverage GitHub Action
 inputs:
   django-app:
     description: "Application"
