@@ -8,8 +8,8 @@ echo "Starting ${GITHUB_WORKFLOW}:${GITHUB_ACTION}"
 APP=$1
 MIN_COVERAGE=$2
 
-# start PostgreSQL
-service postgresql start
+# start MySQL
+service mysql start
 
 # setup run settings
 if [ -z "${APP}" ]; then
@@ -28,10 +28,10 @@ fi
 
 source "${GITHUB_WORKSPACE}/${VENV_NAME}/bin/activate"
 
-pip install -r requirements.txt
+pip install -r reqs
 
 echo "Base setup complete. Setting up a sample DB url and running..."
-export DATABASE_URL='postgresql://ctest:coveragetest123@127.0.0.1:5432/demo'
+export DATABASE_URL='mysql://ctest:coveragetest123@127.0.0.1:3306/demo'
 
 # This will automatically fail (set -e is set by default) if the tests fail, which is OK.
 coverage run --source "${APP_LOCATION}" manage.py test "${APP}"
