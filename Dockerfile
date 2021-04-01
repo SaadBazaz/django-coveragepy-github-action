@@ -18,7 +18,7 @@ RUN mkdir -p /var/run/postgresql && chown -R postgres:postgres /var/run/postgres
 
 
 RUN apt-get update \
-&& apt-get install -y --no-install-recommends git gcc libc-dev python3-dev build-essential libpq-dev mysql-server mysql-client \
+&& apt-get install -y --no-install-recommends git gcc libc-dev python3-dev build-essential libpq-dev mariadb-server mariadb-client \
 && apt-get purge -y --auto-remove \
 && rm -rf /var/lib/apt/lists/*
 
