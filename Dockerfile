@@ -18,13 +18,13 @@ RUN mkdir -p /var/lib/mysqld && chown -R mysql:mysql /var/lib/mysqld && chmod 27
 
 # Configure Access to Home Directories
 # https://mariadb.com/kb/en/systemd/#configuring-access-to-home-directories
-RUN sudo mkdir /etc/systemd/system/mariadb.service.d
-RUN sudo tee /etc/systemd/system/mariadb.service.d/dontprotecthome.conf <<EOF \
+RUN mkdir /etc/systemd/system/mariadb.service.d
+RUN tee /etc/systemd/system/mariadb.service.d/dontprotecthome.conf <<EOF \
 [Service]\
 \
 ProtectHome=false\
 EOF
-RUN sudo systemctl daemon-reload
+RUN systemctl daemon-reload
 
 
 
