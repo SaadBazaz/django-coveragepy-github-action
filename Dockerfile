@@ -29,9 +29,10 @@ RUN systemctl daemon-reload
 
 
 RUN apt-get update \
-&& apt-get install -y --no-install-recommends git gcc libc-dev python3-dev build-essential libpq-dev mariadb-server mariadb-client \
+&& apt-get install -y --no-install-recommends git gcc libc-dev python3-dev build-essential libpq-dev mariadb-server mariadb-client libmariadbclient-dev python-dev\
 && apt-get purge -y --auto-remove \
 && rm -rf /var/lib/apt/lists/*
+
 
 RUN pip install --upgrade pip virtualenv
 
