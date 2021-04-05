@@ -22,14 +22,14 @@ RUN mkdir /etc/systemd/system/mariadb.service.d
 RUN tee /etc/systemd/system/mariadb.service.d/dontprotecthome.conf <<EOF \
 [Service]\
 \
-ProtectHome=false\
+ProtectHome=false \
 EOF
 RUN systemctl daemon-reload
 
 
 
 RUN apt-get update \
-&& apt-get install -y --no-install-recommends git gcc libc-dev python3-dev build-essential libpq-dev mariadb-server mariadb-client libmariadbclient-dev\
+&& apt-get install -y --no-install-recommends git gcc libc-dev python3-dev build-essential libpq-dev mariadb-server mariadb-client libmariadbclient-dev \
 && apt-get purge -y --auto-remove \
 && rm -rf /var/lib/apt/lists/*
 
