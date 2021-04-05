@@ -15,15 +15,13 @@ RUN set -eux; \
 # also create the postgres user's home directory with appropriate permissions
 # see https://github.com/docker-library/postgres/issues/274
  	mkdir -p /var/lib/mysqld; \
- 	chown -R mysql:mysql /var/lib/mysqld
-RUN mkdir -p /var/lib/mysqld && chown -R mysql:mysql /var/lib/mysqld && chmod 2777 /var/lib/mysqld
+ 	chown -R mysql:mysql /var/lib/mysqld; \
+	mkdir -p /var/run/mysqld; \
+	chown -R mysql:mysql /var/run/mysqld
+RUN mkdir -p /var/lib/mysqld && chown -R mysql:mysql /var/lib/mysqld && chmod 2777 /var/lib/mysqld && mkdir -p /var/run/mysqld && chown -R mysql:mysql /var/run/mysqld && chmod 2777 /var/run/mysqld
 
 # /var/run
 # manual mysql fixes
-RUN set -eux; \
-	mkdir -p /var/run/mysqld; \
-	chown -R mysql:mysql /var/run/mysqld
-RUN mkdir -p /var/run/mysqld && chown -R mysql:mysql /var/run/mysqld && chmod 2777 /var/run/mysqld
 
 
 
@@ -52,8 +50,7 @@ RUN pip install --upgrade pip virtualenv
 # We don't expose the port, but allow all incomming connections
 USER mysql
 # configure the user for later. the service will be started in the entrypoint
-RUN  service mysql start
-RUN  mysql -uroot -e "CREATE USER 'ctest'@'localhost' IDENTIFIED BY 'coveragetest123';GRANT ALL PRIVILEGES ON *.* TO 'ctest'@'localhost' WITH GRANT OPTION;"
+RUN service mysql start && mysqladmin -u root create mydb
 USER root
 
 
