@@ -16,6 +16,17 @@ RUN set -eux; \
 	chown -R mysql:mysql /var/lib/mysqld
 RUN mkdir -p /var/lib/mysqld && chown -R mysql:mysql /var/lib/mysqld && chmod 2777 /var/lib/mysqld
 
+# Configure Access to Home Directories
+# https://mariadb.com/kb/en/systemd/#configuring-access-to-home-directories
+RUN sudo mkdir /etc/systemd/system/mariadb.service.d
+RUN sudo tee /etc/systemd/system/mariadb.service.d/dontprotecthome.conf <<EOF \
+[Service]\
+\
+ProtectHome=false\
+EOF
+RUN sudo systemctl daemon-reload
+
+
 
 RUN apt-get update \
 && apt-get install -y --no-install-recommends git gcc libc-dev python3-dev build-essential libpq-dev mariadb-server mariadb-client \
