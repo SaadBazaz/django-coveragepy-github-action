@@ -50,7 +50,7 @@ RUN pip install --upgrade pip virtualenv
 # We don't expose the port, but allow all incomming connections
 USER mysql
 # configure the user for later. the service will be started in the entrypoint
-RUN service mysql start && mysqladmin -u root create mydb
+RUN find /var/lib/mysql/mysql -exec touch -c -a {} + && service mysql start && mysqladmin -u root create mydb
 USER root
 
 
