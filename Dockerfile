@@ -5,7 +5,9 @@ LABEL "com.github.actions.description"="Python Django Coverage GitHub Action"
 LABEL "com.github.actions.icon"="code"
 LABEL "com.github.actions.color"="black"
 
-# manual postgres fixes
+
+# /var/lib
+# manual mysql fixes
 RUN set -eux; \
 	groupadd -r mysql --gid=999; \
 # https://salsa.debian.org/postgresql/postgresql-common/blob/997d842ee744687d99a2b2d95c1083a2615c79e8/debian/postgresql-common.postinst#L32-35
@@ -15,6 +17,20 @@ RUN set -eux; \
 	mkdir -p /var/lib/mysqld; \
 	chown -R mysql:mysql /var/lib/mysqld
 RUN mkdir -p /var/lib/mysqld && chown -R mysql:mysql /var/lib/mysqld && chmod 2777 /var/lib/mysqld
+
+# /var/run
+# manual mysql fixes
+RUN set -eux; \
+	groupadd -r mysql --gid=999; \
+# https://salsa.debian.org/postgresql/postgresql-common/blob/997d842ee744687d99a2b2d95c1083a2615c79e8/debian/postgresql-common.postinst#L32-35
+	useradd -r -g mysql --uid=999 --home-dir=/var/run/mysqld --shell=/bin/bash mysql; \
+# also create the postgres user's home directory with appropriate permissions
+# see https://github.com/docker-library/postgres/issues/274
+	mkdir -p /var/run/mysqld; \
+	chown -R mysql:mysql /var/run/mysqld
+RUN mkdir -p /var/run/mysqld && chown -R mysql:mysql /var/run/mysqld && chmod 2777 /var/run/mysqld
+
+
 
 # Configure Access to Home Directories
 # https://mariadb.com/kb/en/systemd/#configuring-access-to-home-directories
