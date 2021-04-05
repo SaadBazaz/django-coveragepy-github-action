@@ -29,7 +29,7 @@ RUN pip install --upgrade pip virtualenv
 USER mysql
 # configure the user for later. the service will be started in the entrypoint
 RUN  service mysql start \
-&& mysql -Bse "CREATE USER 'ctest'@'localhost' IDENTIFIED BY 'coveragetest123';GRANT ALL PRIVILEGES ON *.* TO 'ctest'@'localhost' WITH GRANT OPTION;"
+&& mysql -uroot -e "CREATE USER 'ctest'@'localhost' IDENTIFIED BY 'coveragetest123';GRANT ALL PRIVILEGES ON *.* TO 'ctest'@'localhost' WITH GRANT OPTION;"
 USER root
 
 
