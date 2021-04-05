@@ -28,7 +28,7 @@ RUN pip install --upgrade pip virtualenv
 # We don't expose the port, but allow all incomming connections
 USER mysql
 # configure the user for later. the service will be started in the entrypoint
-RUN  service mysqld start
+RUN  service mysql start
 RUN  mysql -uroot -e "CREATE USER 'ctest'@'localhost' IDENTIFIED BY 'coveragetest123';GRANT ALL PRIVILEGES ON *.* TO 'ctest'@'localhost' WITH GRANT OPTION;"
 USER root
 
