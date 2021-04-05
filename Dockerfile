@@ -24,8 +24,8 @@ RUN tee /etc/systemd/system/mariadb.service.d/dontprotecthome.conf <<EOF \
 \
 ProtectHome=false \
 EOF
-RUN apt-get install --reinstall systemd
-RUN systemctl daemon-reload
+# RUN apt-get install --reinstall systemd
+# RUN systemctl daemon-reload
 
 
 
