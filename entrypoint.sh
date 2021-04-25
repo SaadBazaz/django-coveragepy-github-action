@@ -31,7 +31,7 @@ source "${GITHUB_WORKSPACE}/${VENV_NAME}/bin/activate"
 pip install -r reqs
 
 echo "Base setup complete. Setting up a sample DB url and running..."
-export DATABASE_URL='mysql://ctest:coveragetest123@127.0.0.1:3306/demo'
+# export DATABASE_URL='mysql://ctest:coveragetest123@127.0.0.1:3306/demo'
 
 # This will automatically fail (set -e is set by default) if the tests fail, which is OK.
 coverage run --source "${APP_LOCATION}" manage.py test "${APP}"
