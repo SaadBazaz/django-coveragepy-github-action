@@ -9,7 +9,7 @@ APP=$1
 MIN_COVERAGE=$2
 
 # start MySQL
-# service mysql start
+service mysql start
 
 # setup run settings
 if [ -z "${APP}" ]; then
